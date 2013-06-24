@@ -20,7 +20,7 @@ group :development, :test do
   gem 'rspec-rails'
 end
 group :test do
-  gem 'capybara'
+  gem 'capybara', '1.1.1'
   gem 'database_cleaner'
   gem 'email_spec'
 end

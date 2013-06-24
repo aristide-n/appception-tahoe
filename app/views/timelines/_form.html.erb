@@ -1,0 +1,33 @@
+<%= form_for @timeline do |f| %>
+  <%= f.label :test_name %>
+  <%= f.text_field :test_name %>
+  <%= f.label :dump_file %>
+  <%= f.file_field :dump_file %>
+  <%= f.submit %>
+<% end %>
+
+<!--<%= form_for(@timeline) do |f| %>-->
+  <!--<% if @timeline.errors.any? %>-->
+    <!--<div id="error_explanation">-->
+      <!--<h2><%= pluralize(@timeline.errors.count, "error") %> prohibited this timeline from being saved:</h2>-->
+
+      <!--<ul>-->
+      <!--<% @timeline.errors.full_messages.each do |msg| %>-->
+        <!--<li><%= msg %></li>-->
+      <!--<% end %>-->
+      <!--</ul>-->
+    <!--</div>-->
+  <!--<% end %>-->
+
+  <!--<div class="field">-->
+    <!--<%= f.label :dump_file %><br />-->
+    <!--<%= f.text_field :dump_file %>-->
+  <!--</div>-->
+  <!--<div class="field">-->
+    <!--<%= f.label :test_name %><br />-->
+    <!--<%= f.text_field :test_name %>-->
+  <!--</div>-->
+  <!--<div class="actions">-->
+    <!--<%= f.submit %>-->
+  <!--</div>-->
+<!--<% end %>-->
