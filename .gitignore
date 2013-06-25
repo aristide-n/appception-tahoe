@@ -75,3 +75,6 @@ pickle-email-*.html
 
 # Ignore application configuration
 /config/application.yml
+
+# Ignore files uploaded
+/public/uploads/

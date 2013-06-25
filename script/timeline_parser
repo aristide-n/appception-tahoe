@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+require File.expand_path("../../config/environment", __FILE__)
+require 'json'
+require 'pp'
+
+
+file_path = Rails.root.join('public', 'uploads','3.json') # parameterize 3.json
+json_file = File.read(file_path)
+parsed_timeline_data = JSON.parse(json_file)
+
+#pp parsed_timeline_data
+
+environment_data = parsed_timeline_data[0]
+timeline_events_data = parsed_timeline_data[1..(parsed_timeline_data.length-1)]
+
+#pp parsed_timeline_data
+pp timeline_events_data
