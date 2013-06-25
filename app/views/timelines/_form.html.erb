@@ -1,0 +1,33 @@
+<%= form_for(@timeline) do |f| %>
+  <% if @timeline.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@timeline.errors.count, "error") %> prohibited this timeline from being saved:</h2>
+
+      <ul>
+      <% @timeline.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :test_name %><br />
+    <%= f.text_field :test_name %>
+  </div>
+  <div class="field">
+    <%= f.label :test_details %><br />
+    <%= f.text_area :test_details %>
+  </div>
+  <div class="field">
+    <%= f.label :json_file_name %><br />
+    <%= f.text_field :json_file_name %>
+  </div>
+  <div class="field">
+    <%= f.label :json_digest %><br />
+    <%= f.text_area :json_digest %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

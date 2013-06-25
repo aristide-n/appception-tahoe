@@ -1,0 +1,29 @@
+<h1>Listing timelines</h1>
+
+<table>
+  <tr>
+    <th>Test name</th>
+    <th>Test details</th>
+    <th>Json file name</th>
+    <th>Json digest</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @timelines.each do |timeline| %>
+  <tr>
+    <td><%= timeline.test_name %></td>
+    <td><%= timeline.test_details %></td>
+    <td><%= timeline.json_file_name %></td>
+    <td><%= timeline.json_digest %></td>
+    <td><%= link_to 'Show', timeline %></td>
+    <td><%= link_to 'Edit', edit_timeline_path(timeline) %></td>
+    <td><%= link_to 'Destroy', timeline, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Timeline', new_timeline_path %>

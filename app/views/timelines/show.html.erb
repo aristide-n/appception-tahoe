@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Test name:</b>
+  <%= @timeline.test_name %>
+</p>
+
+<p>
+  <b>Test details:</b>
+  <%= @timeline.test_details %>
+</p>
+
+<p>
+  <b>Json file name:</b>
+  <%= @timeline.json_file_name %>
+</p>
+
+<p>
+  <b>Json digest:</b>
+  <%= @timeline.json_digest %>
+</p>
+
+
+<%= link_to 'Edit', edit_timeline_path(@timeline) %> |
+<%= link_to 'Back', timelines_path %>

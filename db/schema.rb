@@ -10,3 +10,16 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended to check this file into your version control system.
+
+ActiveRecord::Schema.define(:version => 20130625022721) do
+
+  create_table "timelines", :force => true do |t|
+    t.string   "test_name"
+    t.text     "test_details"
+    t.string   "json_file_name"
+    t.text     "json_digest"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+end
