@@ -20,12 +20,8 @@
     <%= f.text_area :test_details %>
   </div>
   <div class="field">
-    <%= f.label :json_file_name %><br />
-    <%= f.text_field :json_file_name %>
-  </div>
-  <div class="field">
-    <%= f.label :json_digest %><br />
-    <%= f.text_area :json_digest %>
+    <%= f.label :json_file %><br />
+    <%= f.file_field :json_file %>
   </div>
   <div class="actions">
     <%= f.submit %>
