@@ -1,0 +1,118 @@
+#!/usr/bin/env ruby
+
+require File.expand_path("../../config/environment", __FILE__)
+require 'json'
+require 'pp'
+
+def parse
+
+  # Deserialize timeline dump file
+  file_path = Rails.root.join('public', 'uploads','testing.json') # parameterize 3.json
+  json_file = File.read(file_path)
+  parsed_timeline_data = JSON.parse(json_file)
+
+  # pp environment data
+  environment_data = parsed_timeline_data[0]
+
+  puts "ENV data:\n" << environment_data
+
+  timeline_events_data = parsed_timeline_data[1..(parsed_timeline_data.length-1)]
+
+  # pp parsed timeline events data
+  #pp "Timeline event\n" << timeline_events_data
+
+  # Get frame timings after load, and print 'em
+  #load_event_type = "MarkLoad"
+  #next_frame_timings = get_frame_timings(timeline_events_data, load_event_type)
+  #puts next_frame_timings
+
+  # Get frame timings after style change, and print 'em
+  #style_change_event_type = "RecalculateStyles"
+  #next_frame_timings = get_frame_timings(timeline_events_data, style_change_event_type)
+  #pp next_frame_timings
+
+  testing_sections_list = get_testing_sections(timeline_events_data)
+  puts testing_sections_list.length
+end
+
+def get_testing_sections(event_objects_list)
+  sections_list = []
+  section_beginning = 0
+  section_end = 0
+
+  event_objects_list.each do |object|
+    if deep_has_value?(object, "begin")
+      section_beginning = event_objects_list.find_index(object)
+    elsif deep_has_value?(object, "end")
+      section_end = event_objects_list.find_index(object)
+      sections_list << event_objects_list[section_beginning..section_end]
+      section_beginning = 0
+      section_end = 0
+    end
+  end
+
+  return sections_list
+end
+
+def deep_has_value?(obj, value)
+  result = false
+
+  if obj.respond_to?(:value?) && obj.has_value?(value)
+    result = true
+  elsif obj.respond_to?(:each)
+    obj.find{ |*a| result=deep_has_value?(a.last,value) }
+    result
+  else
+    result
+  end
+end
+
+def get_frame_timings(events_data, event_before_frame)
+  is_frame_event_pending = false
+  timings = []
+
+  for object in events_data
+    # The true events list is the val of the "children key"
+    events_list = object["children"]
+
+    if is_frame_event_pending
+        # Check for the beginFrame event; when found:
+        # 1. push the timing of the object in the list of timings,
+        # 2. toggle the frame_event_pending flag
+        is_frame_event_found = check_for_event_type(events_list, "BeginFrame")
+
+      if is_frame_event_found == true
+        timings.append(object["endTime"] - object["startTime"])
+        is_frame_event_pending = false
+      end
+    else
+      # Check for event_before_frame in the list and toggle the frame_event_pending flag
+      is_event_before_frame_found = check_for_event_type(events_list, event_before_frame)
+
+      if is_event_before_frame_found == true
+        is_frame_event_pending = true
+      end
+    end
+  end
+
+  return timings
+end
+
+def check_for_event_type (list_of_objects, event_name)
+  event_is_present = false
+  i = 0
+  list_length = list_of_objects.length
+
+  while event_is_present != true and i < list_length
+    obj = list_of_objects[i]
+    if obj.has_value?(event_name)
+      event_is_present = true
+    else
+      i += 1
+    end
+  end
+
+  return event_is_present
+end
+
+parse
