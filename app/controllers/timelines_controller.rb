@@ -40,16 +40,17 @@ class TimelinesController < ApplicationController
   # POST /timelines
   # POST /timelines.json
   def create
-    uploaded_io = params[:timeline][:json_file]
-    File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
-      file.write(uploaded_io.read)
+    uploaded_data = params[:timeline][:json_file]
+    file_path = Rails.root.join('public', 'uploads', uploaded_data.original_filename)
+    File.open(file_path, 'wb') do |file|
+      file.write(uploaded_data.read)
     end
 
     @timeline = Timeline.new(
         :test_name => params[:timeline][:test_name],
         :test_details => params[:timeline][:test_details],
-        :test_details => params[:timeline][:test_details],
-        :json_file_name => uploaded_io.original_filename)
+        :json_file_name => uploaded_data.original_filename,
+        :json_digest => view_context.parse(file_path))
 
     respond_to do |format|
       if @timeline.save
