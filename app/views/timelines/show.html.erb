@@ -1,25 +1,148 @@
-<p id="notice"><%= notice %></p>
+<script type="text/javascript">
 
-<p>
-  <b>Test name:</b>
-  <%= @timeline.test_name %>
-</p>
+    $(function () {
+      //rendering customized timeline data (json_digest)
+        var json = <%= @timeline.json_digest.to_json.html_safe %>;
 
-<p>
-  <b>Test details:</b>
-  <%= @timeline.test_details %>
-</p>
+        var data = JSON.parse(json);
 
-<p>
-  <b>Json file name:</b>
-  <%= @timeline.json_file_name %>
-</p>
+        //table code
+        var tbl_body = "";
 
-<p>
-  <b>Json digest:</b>
-  <%= @timeline.json_digest %>
-</p>
+            var tbl_row = "";
+
+            tbl_body += "<tr><td>OS</td><td>"+data.os+"</td></tr>"
+                    +"<tr><td>OS Version</td><td>"+data.osVersion+"</td></tr>"
+                    +"<tr><td>Chrome Version</td><td>"+data.chromeVersion+"</td></tr>";
+
+                $.each(data.performanceMetrics, function(k,v) {
+                    if(k=="calculateStylesMetrics")
+                        v="";
+
+                    if(k=="calculateStylesMetrics"){
+                        tbl_body += "<tr><td>"+k+"</td><td>"+v+"</td></tr>";
+                        $.each(data.performanceMetrics.calculateStylesMetrics, function(k,v) {
+                            tbl_body += "<tr><td>"+k+"</td><td>"+v+"</td></tr>";
+                        });
+                    }
+                    if(k=="renderingMetrics")
+                        v="";
+
+                    if(k=="renderingMetrics"){
+                        tbl_body += "<tr><td>"+k+"</td><td>"+v+"</td></tr>";
+                        $.each(data.performanceMetrics.renderingMetrics, function(k,v) {
+                            tbl_body += "<tr><td>"+k+"</td><td>"+v+"</td></tr>";
+                        });
+                    }
+                    if(k=="layoutMetrics")
+                        v="";
+
+                    if(k=="layoutMetrics"){
+                        tbl_body += "<tr><td>"+k+"</td><td>"+v+"</td></tr>";
+                        $.each(data.performanceMetrics.layoutMetrics, function(k,v) {
+                            tbl_body += "<tr><td>"+k+"</td><td>"+v+"</td></tr>";
+                        });
+                    }
+                    if(k=="paintMetrics")
+                        v="";
+
+                    if(k=="paintMetrics"){
+                        tbl_body += "<tr><td>"+k+"</td><td>"+v+"</td></tr>";
+                        $.each(data.performanceMetrics.paintMetrics, function(k,v) {
+                            tbl_body += "<tr><td>"+k+"</td><td>"+v+"</td></tr>";
+                        });
+                    }
+                });
 
 
-<%= link_to 'Edit', edit_timeline_path(@timeline) %> |
-<%= link_to 'Back', timelines_path %>
+
+        $("#table tbody").html(tbl_body);
+
+
+        var testTitle = <%= @timeline.test_name.to_json.html_safe%> ;
+        var testDetails = <%= @timeline.test_details.to_json.html_safe%> ;
+        //Highcharts code
+        $('#charts').highcharts({
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: testTitle
+            },
+            subtitle: {
+                text: testDetails
+            },
+            xAxis: {
+                categories: ['Re-calculate Style', 'Frame Rendering', 'Layout', 'Paint'],
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Time (milli-seconds)',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            tooltip: {
+                valueSuffix: ' milli-seconds'
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -100,
+                y: 100,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor: '#FFFFFF',
+                shadow: true
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Maximum',
+                data: [data.performanceMetrics.calculateStylesMetrics.maxCalcStylesTime, data.performanceMetrics.renderingMetrics.maxFrameRenderingTime, data.performanceMetrics.layoutMetrics.maxLayoutTime, data.performanceMetrics.paintMetrics.maxPaintTime]
+            }, {
+                name: 'Average',
+                data: [data.performanceMetrics.calculateStylesMetrics.averageCalcStylesTime, data.performanceMetrics.renderingMetrics.averageFrameRenderingTime, data.performanceMetrics.layoutMetrics.averageLayoutTime, data.performanceMetrics.paintMetrics.averagePaintTime]
+            }, {
+                name: 'Minimum',
+                data: [data.performanceMetrics.calculateStylesMetrics.minCalcStylesTime, data.performanceMetrics.renderingMetrics.minFrameRenderingTime, data.performanceMetrics.layoutMetrics.minLayoutTime, data.performanceMetrics.paintMetrics.minPaintTime]
+            }]
+        });
+    });
+
+
+</script>
+
+<div id="charts" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<table id="table" border="1">
+  <tbody>
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+

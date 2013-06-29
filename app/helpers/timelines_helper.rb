@@ -11,8 +11,10 @@ module TimelinesHelper
 
     @testing_sections_list = get_testing_sections(timeline_events_data)
 
+
     # Return a hash of the performance metrics
-    return aggregate_performance_metrics
+    return aggregate_performance_metrics.to_json
+
   end
 
   def get_testing_sections(event_objects_list)
@@ -64,36 +66,36 @@ module TimelinesHelper
 
     # Insert the OS version in the hash
     if env_info_list.include?("Mac") && env_info_list.include?("OS")
-      results_hash[:os] = "Mac OS X"
+      results_hash["os"] = "Mac OS X"
       ver_index = env_info_list.index("X") + 1
-      results_hash[:osVersion] = env_info_list[ver_index]
+      results_hash["osVersion"] = env_info_list[ver_index]
     else
-      results_hash[:os] = "Unknown"
-      results_hash[:osVersion] = "unknown"
+      results_hash["os"] = "Unknown"
+      results_hash["osVersion"] = "unknown"
     end
 
     # Insert the chrome version
     chrome_ver_index = env_info_list.index("Chrome")+1
-    results_hash[:chromeVersion] = env_info_list[chrome_ver_index]
+    results_hash["chromeVersion"] = env_info_list[chrome_ver_index]
   end
 
   def insert_performanceMetrics(results_hash)
     metrics_hash = {}
 
     # Get Frame rendering metrics
-    metrics_hash[:renderingMetrics] = get_rendering_metrics
+    metrics_hash["renderingMetrics"] = get_rendering_metrics
 
     # Get Layout metrics
-    metrics_hash[:layoutMetrics] = get_layout_metrics
+    metrics_hash["layoutMetrics"] = get_layout_metrics
 
     # Get painting metrics
-    metrics_hash[:paintMetrics] = get_painting_metrics
+    metrics_hash["paintMetrics"] = get_painting_metrics
 
     # Get styling metrics
-    metrics_hash[:calculateStylesMetrics] = get_styling_metrics
+    metrics_hash["calculateStylesMetrics"] = get_styling_metrics
 
     #Insert the results in the hash
-    results_hash[:performanceMetrics] = metrics_hash
+    results_hash["performanceMetrics"] = metrics_hash
   end
 
   def get_rendering_metrics
@@ -129,10 +131,10 @@ module TimelinesHelper
 
     # create the hash of metrics
     rendering_metrics_hash = {}
-    rendering_metrics_hash[:averageFrameRenderingTime] = rendering_timings.sum.to_f / rendering_timings.length
-    rendering_metrics_hash[:maxFrameRenderingTime] = rendering_timings.max
-    rendering_metrics_hash[:minFrameRenderingTime] = rendering_timings.min
-    rendering_metrics_hash[:frameRenderingRepetitions] = rendering_timings.length
+    rendering_metrics_hash["averageFrameRenderingTime"] = rendering_timings.sum.to_f / rendering_timings.length
+    rendering_metrics_hash["maxFrameRenderingTime"] = rendering_timings.max
+    rendering_metrics_hash["minFrameRenderingTime"] = rendering_timings.min
+    rendering_metrics_hash["frameRenderingRepetitions"] = rendering_timings.length
 
     return rendering_metrics_hash
   end
@@ -171,10 +173,10 @@ module TimelinesHelper
 
     # create the hash of metrics
     layout_metrics_hash = {}
-    layout_metrics_hash[:averageLayoutTime] = layout_timings.sum.to_f / layout_timings.length
-    layout_metrics_hash[:maxLayoutTime] = layout_timings.max
-    layout_metrics_hash[:minLayoutTime] = layout_timings.min
-    layout_metrics_hash[:layoutRepetitions] = layout_timings.length
+    layout_metrics_hash["averageLayoutTime"] = layout_timings.sum.to_f / layout_timings.length
+    layout_metrics_hash["maxLayoutTime"] = layout_timings.max
+    layout_metrics_hash["minLayoutTime"] = layout_timings.min
+    layout_metrics_hash["layoutRepetition"] = layout_timings.length
 
     return layout_metrics_hash
   end
@@ -213,10 +215,10 @@ module TimelinesHelper
 
     # create the hash of metrics
     styling_metrics_hash = {}
-    styling_metrics_hash[:averageCalcStylesTime] = styling_timings.sum.to_f / styling_timings.length
-    styling_metrics_hash[:maxCalcStylesTime] = styling_timings.max
-    styling_metrics_hash[:minCalcStylesTime] = styling_timings.min
-    styling_metrics_hash[:calcStylesRepetitions] = styling_timings.length
+    styling_metrics_hash["averageCalcStylesTime"] = styling_timings.sum.to_f / styling_timings.length
+    styling_metrics_hash["maxCalcStylesTime"] = styling_timings.max
+    styling_metrics_hash["minCalcStylesTime"] = styling_timings.min
+    styling_metrics_hash["calcStylesRepetitions"] = styling_timings.length
 
     return styling_metrics_hash
   end
@@ -267,10 +269,10 @@ module TimelinesHelper
     # create the hash of metrics
     painting_timings = painting_timings.flatten
     painting_metrics_hash = {}
-    painting_metrics_hash[:averagePaintTime] = painting_timings.sum.to_f / painting_timings.length
-    painting_metrics_hash[:maxPaintTime] = painting_timings.max
-    painting_metrics_hash[:minPaintTime] = painting_timings.min
-    painting_metrics_hash[:paintOccurrences] = painting_timings.length
+    painting_metrics_hash["averagePaintTime"] = painting_timings.sum.to_f / painting_timings.length
+    painting_metrics_hash["maxPaintTime"] = painting_timings.max
+    painting_metrics_hash["minPaintTime"] = painting_timings.min
+    painting_metrics_hash["paintOccurrences"] = painting_timings.length
 
     return painting_metrics_hash
   end
