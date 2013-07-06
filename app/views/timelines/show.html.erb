@@ -1,3 +1,5 @@
+<%= link_to 'Index', timelines_path %></td>
+
 <script type="text/javascript">
 
     $(function () {
@@ -25,21 +27,21 @@
                             tbl_body += "<tr><td>"+k+"</td><td>"+v+"</td></tr>";
                         });
                     }
+                    if(k=="layoutMetrics")
+                      v="";
+
+                    if(k=="layoutMetrics"){
+                      tbl_body += "<tr><td>"+k+"</td><td>"+v+"</td></tr>";
+                      $.each(data.performanceMetrics.layoutMetrics, function(k,v) {
+                        tbl_body += "<tr><td>"+k+"</td><td>"+v+"</td></tr>";
+                      });
+                    }
                     if(k=="renderingMetrics")
                         v="";
 
                     if(k=="renderingMetrics"){
                         tbl_body += "<tr><td>"+k+"</td><td>"+v+"</td></tr>";
                         $.each(data.performanceMetrics.renderingMetrics, function(k,v) {
-                            tbl_body += "<tr><td>"+k+"</td><td>"+v+"</td></tr>";
-                        });
-                    }
-                    if(k=="layoutMetrics")
-                        v="";
-
-                    if(k=="layoutMetrics"){
-                        tbl_body += "<tr><td>"+k+"</td><td>"+v+"</td></tr>";
-                        $.each(data.performanceMetrics.layoutMetrics, function(k,v) {
                             tbl_body += "<tr><td>"+k+"</td><td>"+v+"</td></tr>";
                         });
                     }
@@ -73,7 +75,7 @@
                 text: testDetails
             },
             xAxis: {
-                categories: ['Re-calculate Style', 'Frame Rendering', 'Layout', 'Paint'],
+                categories: ['Re-calculate Style', 'Layout', 'Frame Rendering', 'Paint'],
                 title: {
                     text: null
                 }
@@ -114,13 +116,13 @@
             },
             series: [{
                 name: 'Maximum',
-                data: [data.performanceMetrics.calculateStylesMetrics.maxCalcStylesTime, data.performanceMetrics.renderingMetrics.maxFrameRenderingTime, data.performanceMetrics.layoutMetrics.maxLayoutTime, data.performanceMetrics.paintMetrics.maxPaintTime]
+                data: [data.performanceMetrics.calculateStylesMetrics.maxCalcStylesTime, data.performanceMetrics.layoutMetrics.maxLayoutTime, data.performanceMetrics.renderingMetrics.maxFrameRenderingTime, data.performanceMetrics.paintMetrics.maxPaintTime]
             }, {
                 name: 'Average',
-                data: [data.performanceMetrics.calculateStylesMetrics.averageCalcStylesTime, data.performanceMetrics.renderingMetrics.averageFrameRenderingTime, data.performanceMetrics.layoutMetrics.averageLayoutTime, data.performanceMetrics.paintMetrics.averagePaintTime]
+                data: [data.performanceMetrics.calculateStylesMetrics.averageCalcStylesTime, data.performanceMetrics.layoutMetrics.averageLayoutTime, data.performanceMetrics.renderingMetrics.averageFrameRenderingTime, data.performanceMetrics.paintMetrics.averagePaintTime]
             }, {
                 name: 'Minimum',
-                data: [data.performanceMetrics.calculateStylesMetrics.minCalcStylesTime, data.performanceMetrics.renderingMetrics.minFrameRenderingTime, data.performanceMetrics.layoutMetrics.minLayoutTime, data.performanceMetrics.paintMetrics.minPaintTime]
+                data: [data.performanceMetrics.calculateStylesMetrics.minCalcStylesTime, data.performanceMetrics.layoutMetrics.minLayoutTime, data.performanceMetrics.renderingMetrics.minFrameRenderingTime, data.performanceMetrics.paintMetrics.minPaintTime]
             }]
         });
     });
