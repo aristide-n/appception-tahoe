@@ -11,7 +11,7 @@ module TimelinesHelper
 
     @testing_sections_list = get_testing_sections(timeline_events_data)
 
-    # Return a hash of the performance metrics
+    # Return a json string of the performance metrics
     return aggregate_performance_metrics.to_json
 
   end
@@ -63,8 +63,14 @@ module TimelinesHelper
     # Remove all special characters from the ENV info string, and map the remaining data into an Array
     env_info_list = @environment_data.gsub(/;/i, ",").gsub(/\(/i, ",").gsub(/\)/i, ",").gsub(/\//i, ",").gsub(/ /i, ",").split(",").map(&:strip).reject(&:empty?)
 
+    puts env_info_list.to_s
+
     # Insert the OS version in the hash
-    if env_info_list.include?("Mac") && env_info_list.include?("OS")
+    if env_info_list.include?("Windows") && env_info_list.include?("NT")
+      results_hash["os"] = "Windows NT"
+      ver_index = env_info_list.index("NT") + 1
+      results_hash["osVersion"] = env_info_list[ver_index]
+    elsif env_info_list.include?("Mac") && env_info_list.include?("OS")
       results_hash["os"] = "Mac OS X"
       ver_index = env_info_list.index("X") + 1
       results_hash["osVersion"] = env_info_list[ver_index]
