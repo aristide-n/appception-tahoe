@@ -67,22 +67,22 @@ AppceptionTahoe::Application.configure do
 
 
   # Exceptions in production
-  config.middleware.use ExceptionNotifier,
-                        :email_prefix => "[Exception] ",
-                        :sender_address => ENV['EXCEPTION_NOTIFIER_SENDER'],
-                        :exception_recipients => ENV['EXCEPTION_NOTIFIER_RECIPIENTS']
-
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = true
-
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-      :address              => "smtp.gmail.com",
-      :port                 => 587,
-      :domain               => ENV['SMTP_SERVER'],
-      :user_name            => ENV['SMTP_SERVER_USERNAME'],
-      :password             => ENV['SMTP_SERVER_PASSWORD'],
-      :authentication       => 'plain',
-      :enable_starttls_auto => true  }
-
+#  config.middleware.use ExceptionNotifier,
+#                        :email_prefix => "[Exception] ",
+#                        :sender_address => ENV['EXCEPTION_NOTIFIER_SENDER'],
+#                        :exception_recipients => ENV['EXCEPTION_NOTIFIER_RECIPIENTS']
+#
+#  config.action_mailer.perform_deliveries = true
+#  config.action_mailer.raise_delivery_errors = true
+#
+#  config.action_mailer.delivery_method = :smtp
+#  config.action_mailer.smtp_settings = {
+#      :address              => "smtp.gmail.com",
+#      :port                 => 587,
+#      :domain               => ENV['SMTP_SERVER'],
+#      :user_name            => ENV['SMTP_SERVER_USERNAME'],
+#      :password             => ENV['SMTP_SERVER_PASSWORD'],
+#      :authentication       => 'plain',
+#      :enable_starttls_auto => true  }
+#
 end

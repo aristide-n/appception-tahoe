@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+
+ruby '1.9.3'
 gem 'rails', '3.2.13'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -24,4 +26,4 @@ group :test do
   gem 'database_cleaner'
   gem 'email_spec'
 end
-gem 'exception_notification', :require => 'exception_notifier'
+#gem 'exception_notification', :git => "https://github.com/smartinez87/exception_notification.git"
