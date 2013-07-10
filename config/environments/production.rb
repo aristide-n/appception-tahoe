@@ -72,6 +72,9 @@ AppceptionTahoe::Application.configure do
                         :sender_address => ENV['EXCEPTION_NOTIFIER_SENDER'],
                         :exception_recipients => ENV['EXCEPTION_NOTIFIER_RECIPIENTS']
 
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
       :address              => "smtp.gmail.com",

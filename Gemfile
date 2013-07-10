@@ -9,7 +9,6 @@ gem 'jquery-rails'
 gem 'figaro'
 gem 'pg'
 gem 'thin'
-gem 'exception_notification', :require => 'exception_notifier'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :rbx]
@@ -25,3 +24,4 @@ group :test do
   gem 'database_cleaner'
   gem 'email_spec'
 end
+gem 'exception_notification', :require => 'exception_notifier'
