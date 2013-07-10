@@ -64,4 +64,21 @@ AppceptionTahoe::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+  # Exceptions in production
+  config.middleware.use ExceptionNotifier,
+                        :email_prefix => "[Exception] ",
+                        :sender_address => ENV['EXCEPTION_NOTIFIER_SENDER'],
+                        :exception_recipients => ENV['EXCEPTION_NOTIFIER_RECIPIENTS']
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      :address              => "smtp.gmail.com",
+      :port                 => 587,
+      :domain               => 'SMTP_SERVER',
+      :user_name            => ENV['SMTP_SERVER_USERNAME'],
+      :password             => ENV['SMTP_SERVER_PASSWORD'],
+      :authentication       => 'plain',
+      :enable_starttls_auto => true  }
+
 end
