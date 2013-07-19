@@ -1,0 +1,29 @@
+<%= form_for(@environment) do |f| %>
+  <% if @environment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@environment.errors.count, "error") %> prohibited this environment from being saved:</h2>
+
+      <ul>
+      <% @environment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_agent %><br />
+    <%= f.text_field :user_agent %>
+  </div>
+  <div class="field">
+    <%= f.label :platform %><br />
+    <%= f.text_field :platform %>
+  </div>
+  <div class="field">
+    <%= f.label :device_name %><br />
+    <%= f.text_field :device_name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

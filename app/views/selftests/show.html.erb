@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @selftest.name %>
+</p>
+
+<p>
+  <b>K ops:</b>
+  <%= @selftest.k_ops %>
+</p>
+
+<p>
+  <b>Ms time:</b>
+  <%= @selftest.ms_time %>
+</p>
+
+
+<%= link_to 'Edit', edit_selftest_path(@selftest) %> |
+<%= link_to 'Back', selftests_path %>

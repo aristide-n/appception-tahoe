@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User agent:</b>
+  <%= @environment.user_agent %>
+</p>
+
+<p>
+  <b>Platform:</b>
+  <%= @environment.platform %>
+</p>
+
+<p>
+  <b>Device name:</b>
+  <%= @environment.device_name %>
+</p>
+
+
+<%= link_to 'Edit', edit_environment_path(@environment) %> |
+<%= link_to 'Back', environments_path %>

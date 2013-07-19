@@ -1,0 +1,29 @@
+<%= form_for(@selftest) do |f| %>
+  <% if @selftest.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@selftest.errors.count, "error") %> prohibited this selftest from being saved:</h2>
+
+      <ul>
+      <% @selftest.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :k_ops %><br />
+    <%= f.text_field :k_ops %>
+  </div>
+  <div class="field">
+    <%= f.label :ms_time %><br />
+    <%= f.text_field :ms_time %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

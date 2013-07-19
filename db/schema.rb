@@ -11,7 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130625022721) do
+ActiveRecord::Schema.define(:version => 20130719090201) do
+
+  create_table "environments", :force => true do |t|
+    t.string   "user_agent"
+    t.string   "platform"
+    t.string   "device_name"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "selftests", :force => true do |t|
+    t.string   "name"
+    t.decimal  "k_ops"
+    t.decimal  "ms_time"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "environment_id"
+  end
 
   create_table "timelines", :force => true do |t|
     t.string   "test_name"

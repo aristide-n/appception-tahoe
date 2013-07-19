@@ -1,0 +1,27 @@
+<h1>Listing selftests</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>K ops</th>
+    <th>Ms time</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @selftests.each do |selftest| %>
+  <tr>
+    <td><%= selftest.name %></td>
+    <td><%= selftest.k_ops %></td>
+    <td><%= selftest.ms_time %></td>
+    <td><%= link_to 'Show', selftest %></td>
+    <td><%= link_to 'Edit', edit_selftest_path(selftest) %></td>
+    <td><%= link_to 'Destroy', selftest, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Selftest', new_selftest_path %>
