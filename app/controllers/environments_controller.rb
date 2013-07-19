@@ -40,11 +40,18 @@ class EnvironmentsController < ApplicationController
   # POST /environments
   # POST /environments.json
   def create
-    @environment = Environment.new(params[:environment])
+    @environment = Environment.new(:platform => params[:Platform],
+                                   :device_name => params[:device_name],
+                                   :user_agent => params[:UserAgent])
 
     respond_to do |format|
       if @environment.save
-        format.html { redirect_to @environment, notice: 'Environment was successfully created.' }
+        params[:tests].each do |test|
+          @environment.selftests.create!(:name => test[1][:name],
+                                         :k_ops => test[1][:kOps],
+                                         :ms_time => test[1][:msTime])
+        end
+        format.html { redirect_to @environment, notice: 'Environment and Selftests were successfully created.' }
         format.json { render json: @environment, status: :created, location: @environment }
       else
         format.html { render action: "new" }
