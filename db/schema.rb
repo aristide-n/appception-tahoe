@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130719090201) do
+ActiveRecord::Schema.define(:version => 20130722054336) do
 
   create_table "environments", :force => true do |t|
     t.string   "user_agent"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20130719090201) do
     t.text     "json_digest"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.string   "device_name"
   end
 
 end

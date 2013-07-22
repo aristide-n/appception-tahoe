@@ -47,9 +47,8 @@ class TimelinesController < ApplicationController
     end
 
     @timeline = Timeline.new(
+        :device_name => params[:timeline][:device_name],
         :test_name => params[:timeline][:test_name],
-        :test_details => params[:timeline][:test_details],
-        :json_file_name => uploaded_data.original_filename,
         :json_digest => view_context.parse(file_path))
 
     respond_to do |format|

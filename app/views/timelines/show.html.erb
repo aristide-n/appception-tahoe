@@ -6,16 +6,14 @@
       //rendering customized timeline data (json_digest)
         var json = <%= @timeline.json_digest.to_json.html_safe %>;
 
+        var device = "<%= @timeline.device_name %>";
+
         var data = JSON.parse(json);
 
         //table code
         var tbl_body = "";
 
             var tbl_row = "";
-
-            tbl_body += "<tr><td>OS</td><td>"+data.os+"</td></tr>"
-                    +"<tr><td>OS Version</td><td>"+data.osVersion+"</td></tr>"
-                    +"<tr><td>Chrome Version</td><td>"+data.chromeVersion+"</td></tr>";
 
                 $.each(data.performanceMetrics, function(k,v) {
                     if(k=="calculateStylesMetrics")
@@ -62,7 +60,6 @@
 
 
         var testTitle = <%= @timeline.test_name.to_json.html_safe%> ;
-        var testDetails = <%= @timeline.test_details.to_json.html_safe%> ;
         //Highcharts code
         $('#charts').highcharts({
             chart: {
@@ -72,7 +69,7 @@
                 text: testTitle
             },
             subtitle: {
-                text: testDetails
+                text: device + "; " + data.env
             },
             xAxis: {
                 categories: ['Re-calculate Style', 'Layout', 'Frame Rendering', 'Paint'],

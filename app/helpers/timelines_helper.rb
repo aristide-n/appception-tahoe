@@ -60,28 +60,30 @@ module TimelinesHelper
   end
 
   def insert_environment_info(results_hash)
-    # Remove all special characters from the ENV info string, and map the remaining data into an Array
-    env_info_list = @environment_data.gsub(/;/i, ",").gsub(/\(/i, ",").gsub(/\)/i, ",").gsub(/\//i, ",").gsub(/ /i, ",").split(",").map(&:strip).reject(&:empty?)
 
-    puts env_info_list.to_s
+    results_hash["env"] = @environment_data
+    ## Remove all special characters from the ENV info string, and map the remaining data into an Array
+    #env_info_list = @environment_data.gsub(/;/i, ",").gsub(/\(/i, ",").gsub(/\)/i, ",").gsub(/\//i, ",").gsub(/ /i, ",").split(",").map(&:strip).reject(&:empty?)
+    #
+    #puts env_info_list.to_s
 
-    # Insert the OS version in the hash
-    if env_info_list.include?("Windows") && env_info_list.include?("NT")
-      results_hash["os"] = "Windows NT"
-      ver_index = env_info_list.index("NT") + 1
-      results_hash["osVersion"] = env_info_list[ver_index]
-    elsif env_info_list.include?("Mac") && env_info_list.include?("OS")
-      results_hash["os"] = "Mac OS X"
-      ver_index = env_info_list.index("X") + 1
-      results_hash["osVersion"] = env_info_list[ver_index]
-    else
-      results_hash["os"] = "Unknown"
-      results_hash["osVersion"] = "unknown"
-    end
-
-    # Insert the chrome version
-    chrome_ver_index = env_info_list.index("Chrome")+1
-    results_hash["chromeVersion"] = env_info_list[chrome_ver_index]
+    ## Insert the OS version in the hash
+    #if env_info_list.include?("Windows") && env_info_list.include?("NT")
+    #  results_hash["os"] = "Windows NT"
+    #  ver_index = env_info_list.index("NT") + 1
+    #  results_hash["osVersion"] = env_info_list[ver_index]
+    #elsif env_info_list.include?("Mac") && env_info_list.include?("OS")
+    #  results_hash["os"] = "Mac OS X"
+    #  ver_index = env_info_list.index("X") + 1
+    #  results_hash["osVersion"] = env_info_list[ver_index]
+    #else
+    #  results_hash["os"] = "Unknown"
+    #  results_hash["osVersion"] = "unknown"
+    #end
+    #
+    ## Insert the chrome version
+    #chrome_ver_index = env_info_list.index("Chrome")+1
+    #results_hash["chromeVersion"] = env_info_list[chrome_ver_index]
   end
 
   def insert_performanceMetrics(results_hash)
