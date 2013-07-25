@@ -2,6 +2,7 @@
 
 <table>
   <tr>
+    <th>Device</th>
     <th>Name</th>
     <th>K ops</th>
     <th>Ms time</th>
@@ -12,6 +13,7 @@
 
 <% @selftests.each do |selftest| %>
   <tr>
+    <td><%= selftest.environment.device_name %></td>
     <td><%= selftest.name %></td>
     <td><%= selftest.k_ops %></td>
     <td><%= selftest.ms_time %></td>
