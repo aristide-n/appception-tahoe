@@ -1,6 +1,11 @@
 <h1>Listing selftests</h1>
 
 <table>
+
+  <% @unique_tests.each do |test|  %>
+      <%= link_to test.name, operation_path(:name => test.name ) %>  </br>
+  <% end %>
+  <h4> All tests </h4>
   <tr>
     <th>Device</th>
     <th>Name</th>
@@ -10,6 +15,8 @@
     <th></th>
     <th></th>
   </tr>
+
+
 
 <% @selftests.each do |selftest| %>
   <tr>

@@ -1,0 +1,135 @@
+<h1><%= params[:name]%></h1>
+<%= link_to "< back to CSS Operations list", selftests_path%>
+<div id="kopsChart"></div>
+<div id="msChart"></div>
+
+
+<script>
+
+    $(function () {
+        var devices = new Array();
+        var msTime = new Array();
+        var kOps = new Array();
+
+        <% @cssTests.each_with_index do |op_test, index| %>
+            devices[<%=index%>] = "<%= op_test.environment.device_name %>";
+            msTime[<%=index%>] = <%= op_test.ms_time.to_f %>;
+            kOps[<%=index%>] = <%= op_test.k_ops.to_f %>;
+        <% end %>
+
+        //Highcharts code
+        $('#kopsChart').highcharts({
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: '<%= params[:name]%>'
+            },
+            subtitle: {
+                text: "kOps across different devices"
+            },
+            xAxis: {
+                categories: devices,
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '1000 Operations per second',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            tooltip: {
+                valueSuffix: 'kOps/s'
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -5,
+                y: 100,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor: '#FFFFFF',
+                shadow: true
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'kOps',
+                data: kOps
+            }]
+        });
+
+        $('#msChart').highcharts({
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: '<%= params[:name]%>'
+            },
+            subtitle: {
+                text: "Average time across different devices"
+            },
+            xAxis: {
+                categories: devices,
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Time (ms)',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            tooltip: {
+                valueSuffix: 'milli-seconds'
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -5,
+                y: 100,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor: '#FFFFFF',
+                shadow: true
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'milli-second',
+                data: msTime
+            }]
+        });
+    });
+
+</script>
+

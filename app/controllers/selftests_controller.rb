@@ -3,13 +3,21 @@ class SelftestsController < ApplicationController
   # GET /selftests.json
   def index
     @selftests = Selftest.all
-
+    @unique_tests = (Selftest.select(:name).uniq)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @selftests }
     end
   end
 
+  def opChart
+    @cssTests = Selftest.where(name: params[:name]);
+
+    respond_to do |format|
+      format.html # opChart.html.erb
+    end
+
+  end
   # GET /selftests/1
   # GET /selftests/1.json
   def show

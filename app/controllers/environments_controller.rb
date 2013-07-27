@@ -10,6 +10,11 @@ class EnvironmentsController < ApplicationController
     end
   end
 
+  def deviceChart
+    @operations = Selftest.where(environment_id: params[:env]);
+    @environment = Environment.find(params[:env]);
+  end
+
   # GET /environments/1
   # GET /environments/1.json
   def show

@@ -12,9 +12,9 @@
 
 <% @environments.each do |environment| %>
   <tr>
+    <td><%= link_to environment.device_name, chart_path(:env => environment ) %></td>
     <td><%= environment.user_agent %></td>
     <td><%= environment.platform %></td>
-    <td><%= environment.device_name %></td>
     <td><%= link_to 'Show', environment %></td>
     <td><%= link_to 'Edit', edit_environment_path(environment) %></td>
     <td><%= link_to 'Destroy', environment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
