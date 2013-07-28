@@ -1,0 +1,82 @@
+<h1><%= @test_data.first.test_name %></h1>
+
+  <script type="text/javascript">
+
+    $(function () {
+      //rendering customized timeline data (json_digest)
+
+      //Highcharts code
+      $("#chart").highcharts({
+        chart: {
+          type: 'bar'
+        },
+        title: {
+          text: "<%= @test_data.first.test_name %>"
+        },
+        subtitle: {
+          text: 'Page rendering times across different devices'
+        },
+        xAxis: {
+          categories: [
+            <% tests_arr_clone = @test_data.clone %>
+            '<%= tests_arr_clone.pop.device_name.html_safe %>'
+            <% tests_arr_clone.reverse.each do |device_item| %>
+              , '<%= device_item.device_name.html_safe %>'
+            <% end %>
+          ],
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: 'Time (milli-seconds)',
+            align: 'high'
+          },
+          labels: {
+            overflow: 'justify'
+          }
+        },
+        tooltip: {
+          valueSuffix: ' milli-seconds'
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            }
+          }
+        },
+        legend: {
+          layout: 'vertical',
+          align: 'right',
+          verticalAlign: 'top',
+          x: -100,
+          y: 100,
+          floating: true,
+          borderWidth: 1,
+          backgroundColor: '#FFFFFF',
+          shadow: true
+        },
+        credits: {
+          enabled: false
+        },
+        series: [{
+          name: 'Average',
+          data: [
+            <% data = JSON.parse(@test_data.pop.json_digest) %>
+            <%= data['performanceMetrics']['calculateStylesMetrics']['averageCalcStylesTime'] + data['performanceMetrics']['layoutMetrics']['averageLayoutTime'] + data['performanceMetrics']['renderingMetrics']['minFrameRenderingTime'] %>
+            <% @test_data.reverse.each do |device_item| %>
+              <% data = JSON.parse(device_item.json_digest) %>
+              ,<%= data['performanceMetrics']['calculateStylesMetrics']['averageCalcStylesTime'] + data['performanceMetrics']['layoutMetrics']['averageLayoutTime'] + data['performanceMetrics']['renderingMetrics']['minFrameRenderingTime'] %>
+            <% end %>
+          ]
+        }]
+      });
+    });
+
+
+  </script>
+
+  <div id="chart" style="min-width: 400px; height: 400px; margin: 0 auto"></div>

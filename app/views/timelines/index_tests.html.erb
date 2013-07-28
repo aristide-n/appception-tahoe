@@ -1,0 +1,5 @@
+<h1>index_tests</h1>
+
+<% @tests.each do |test| %>
+  <%= link_to test.test_name, test_path(test.test_name) %> <br>
+<% end %>
