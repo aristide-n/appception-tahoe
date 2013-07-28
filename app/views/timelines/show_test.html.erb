@@ -11,7 +11,7 @@
           type: 'bar'
         },
         title: {
-          text: "<%= @test_data.first.test_name %>"
+          text: '<%= eval(@test_data.first.test_name.inspect) %>'
         },
         subtitle: {
           text: 'Page rendering times across different devices'
@@ -63,7 +63,7 @@
           enabled: false
         },
         series: [{
-          name: 'Average',
+          name: 'Average page rendering time',
           data: [
             <% data = JSON.parse(@test_data.pop.json_digest) %>
             <%= data['performanceMetrics']['calculateStylesMetrics']['averageCalcStylesTime'] + data['performanceMetrics']['layoutMetrics']['averageLayoutTime'] + data['performanceMetrics']['renderingMetrics']['minFrameRenderingTime'] %>
