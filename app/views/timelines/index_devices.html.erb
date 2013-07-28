@@ -1,0 +1,5 @@
+<h1>index_devices</h1>
+
+<% @devices.each do |device| %>
+  <%= link_to device.device_name, device_path(device.device_name) %> <br>
+<% end %>

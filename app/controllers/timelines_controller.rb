@@ -89,4 +89,27 @@ class TimelinesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  # GET /timelines/devices
+  def index_devices
+    @devices  = Timeline.select(:device_name).uniq.order('device_name ASC')
+  end
+
+  # GET /timelines/devices/<device_name>
+  def show_device
+    @device_data = Timeline.where(:device_name => params['device_name']).order('test_name DESC')
+  end
+
+  # GET /timelines/tests
+  def index_tests
+    @tests = Timeline.select(:test_name).uniq.order('test_name ASC')
+  end
+
+
+  # GET /timelines/tests/<test_name>
+  def show_test
+    @test_data = Timeline.where(:test_name => params['test_name']).order('device_name DESC')
+  end
+
+
 end
