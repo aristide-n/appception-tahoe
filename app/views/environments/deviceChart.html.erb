@@ -30,8 +30,11 @@
             subtitle: {
                 text: "CSS operations: kOps per second"
             },
+            colors: [
+                '#00CC99'
+            ],
             xAxis: {
-                categories: operation,
+                categories: operation.sort(),
                 title: {
                     text: null
                 }
@@ -86,6 +89,9 @@
             subtitle: {
                 text: "Average time of CSS Operations"
             },
+            colors: [
+                '#3BBEE3'
+            ],
             xAxis: {
                 categories: operation,
                 title: {
