@@ -14,7 +14,7 @@
         text: "<%= @device_data.first.device_name %>"
       },
       subtitle: {
-        text: 'Page rendering times across different devices'
+        text: 'Page rendering times across different operations'
       },
       xAxis: {
         categories: [
@@ -63,7 +63,7 @@
         enabled: false
       },
       series: [{
-        name: 'Average',
+        name: 'Average page rendering time',
         data: [
           <% data = JSON.parse(@device_data.pop.json_digest) %>
           <%= data['performanceMetrics']['calculateStylesMetrics']['averageCalcStylesTime'] + data['performanceMetrics']['layoutMetrics']['averageLayoutTime'] + data['performanceMetrics']['renderingMetrics']['minFrameRenderingTime'] %>
