@@ -11,13 +11,14 @@
         var msTime = new Array();
         var kOps = new Array();
 
-        <% @operations.each_with_index do |op_test, index| %>
+        <% sortedOps = @operations.sort_by {|operation| operation.name}%>
+
+        <% sortedOps.each_with_index do |op_test, index| %>
         operation[<%=index%>] = "<%= op_test.name %>";
         msTime[<%=index%>] = <%= op_test.ms_time.to_f %>;
         kOps[<%=index%>] = <%= op_test.k_ops.to_f %>;
         <% end %>
-        console.log(operation);
-       // console.log(operation);
+      ;
 
         //Highcharts code
         $('#kops').highcharts({
@@ -34,7 +35,7 @@
                 '#00CC99'
             ],
             xAxis: {
-                categories: operation.sort(),
+                categories: operation,
                 title: {
                     text: null
                 }

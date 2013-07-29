@@ -11,7 +11,8 @@
         var msTime = new Array();
         var kOps = new Array();
 
-        <% @cssTests.each_with_index do |op_test, index| %>
+        <% sortedTests = @cssTests.sort_by {|test| test.environment.device_name}%>
+        <% sortedTests.each_with_index do |op_test, index| %>
             devices[<%=index%>] = "<%= op_test.environment.device_name %>";
             msTime[<%=index%>] = <%= op_test.ms_time.to_f %>;
             kOps[<%=index%>] = <%= op_test.k_ops.to_f %>;
@@ -32,7 +33,7 @@
                 '#00CC99'
             ],
             xAxis: {
-                categories: devices.sort(),
+                categories: devices,
                 title: {
                     text: null
                 }
