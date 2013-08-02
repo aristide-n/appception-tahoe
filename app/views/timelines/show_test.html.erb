@@ -66,10 +66,14 @@
           name: 'Average page rendering time',
           data: [
             <% data = JSON.parse(@test_data.pop.json_digest) %>
-            <%= data['performanceMetrics']['calculateStylesMetrics']['averageCalcStylesTime'] + data['performanceMetrics']['layoutMetrics']['averageLayoutTime'] + data['performanceMetrics']['renderingMetrics']['minFrameRenderingTime'] %>
+            (Math.round(1000 * <%= data['performanceMetrics']['calculateStylesMetrics']['averageCalcStylesTime'] +
+                                data['performanceMetrics']['layoutMetrics']['averageLayoutTime'] +
+                                data['performanceMetrics']['renderingMetrics']['averageFrameRenderingTime'] %>))/1000
             <% @test_data.reverse.each do |device_item| %>
               <% data = JSON.parse(device_item.json_digest) %>
-              ,<%= data['performanceMetrics']['calculateStylesMetrics']['averageCalcStylesTime'] + data['performanceMetrics']['layoutMetrics']['averageLayoutTime'] + data['performanceMetrics']['renderingMetrics']['minFrameRenderingTime'] %>
+              , (Math.round(1000 * <%= data['performanceMetrics']['calculateStylesMetrics']['averageCalcStylesTime'] +
+                                       data['performanceMetrics']['layoutMetrics']['averageLayoutTime'] +
+                                       data['performanceMetrics']['renderingMetrics']['averageFrameRenderingTime'] %>))/1000
             <% end %>
           ]
         }]
