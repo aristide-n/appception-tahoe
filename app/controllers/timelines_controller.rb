@@ -108,7 +108,7 @@ class TimelinesController < ApplicationController
 
   # GET /timelines/tests/<test_name>
   def show_test
-    @test_data = Timeline.where(:test_name => params['test_name']).order('device_name DESC')
+    @test_data = Timeline.where(:test_name => params['test_name']).order('chart_order DESC')
   end
 
 

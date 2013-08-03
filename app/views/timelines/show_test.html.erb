@@ -11,11 +11,15 @@
           type: 'bar'
         },
         title: {
-          text: '<%= eval(@test_data.first.test_name.inspect) %>'
+//          text: '<%= eval(@test_data.first.test_name.inspect) %>'
+          text: 'Laptops & Mobile Devices (Android) - Chrome'
         },
         subtitle: {
           text: 'Page rendering times across different devices'
         },
+        colors: [
+          '#3BBEE3'
+        ],
         xAxis: {
           categories: [
             <% tests_arr_clone = @test_data.clone %>
