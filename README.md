@@ -13,16 +13,13 @@ The RoR app presents a view for uploading timeline JSON dump files (path: <domai
 3. **Visualizations:**<br>
 The RoR app views of charts summarizing the benchmarking results data. The charts are implemented with the [benchmark.js](https://github.com/bestiejs/benchmark.js) library.<br> 
 **Below are the paths of the different charts:**
-	- List of operations tested using the CDT timeline; each link goes to the chart of the operation's timings across all devices: **\<domain\>/timelines/tests/all**
-	
+	- List of operations tested using the CDT timeline; each link goes to the chart of the operation's timings across all devices: ***\<domain\>/timelines/tests/all***
 	- List of devices; each link goes to the chart of all operations' timings on the particular device:
-**\<domain\>/timelines/devices/all**
-
+***\<domain\>/timelines/devices/all***
 	- List of devices tested using self-timing; each link in the user agent column goes to the charts of the results of all tests on the particular device:
-**\<domain\>/environments**
-
+***\<domain\>/environments***
 	- List of tests; each link goes to the charts of the particular test's results across al devices:
-**\<domain\>/selftests**
+***\<domain\>/selftests***
 
 
 
